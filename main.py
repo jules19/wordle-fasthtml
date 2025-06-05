@@ -65,7 +65,11 @@ css = Style(f'''
         font-size: 1rem;
     }}
     .used-letters {{
-        display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;
+        display: flex; flex-direction: column;
+        gap: 4px; align-items: center;
+    }}
+    .keyboard-row {{
+        display: flex; gap: 4px; justify-content: center;
     }}
 
     .input-area form {{ display: flex; gap: 10px; margin-bottom: 10px; }}
@@ -185,11 +189,15 @@ def UIMessageArea():
 
 def UIUsedLetters():
     colors = get_used_letter_colors()
-    boxes = []
-    for ch in 'abcdefghijklmnopqrstuvwxyz':
-        color = colors.get(ch, 'empty')
-        boxes.append(Div(ch.upper(), cls=f'letter-box small {color}'))
-    return Div(*boxes, id='used-letters', cls='used-letters')
+    layout = ["qwertyuiop", "asdfghjkl", "zxcvbnm"]
+    rows = []
+    for row_letters in layout:
+        boxes = []
+        for ch in row_letters:
+            color = colors.get(ch, 'empty')
+            boxes.append(Div(ch.upper(), cls=f'letter-box small {color}'))
+        rows.append(Div(*boxes, cls='keyboard-row'))
+    return Div(*rows, id='used-letters', cls='used-letters')
 
 def UIControls():
     return Div(
