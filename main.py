@@ -8,7 +8,8 @@ if __name__ == "__main__": sys.exit("Run this app with `uvicorn main:app --reloa
 # Wordle Configuration
 WORD_LENGTH = 5
 MAX_GUESSES = 6
-# A larger list of words for play.
+
+# A list of words for play.
 # In a real app, you'd likely load these from a dictionary file.
 WORDS = [
     "ABOUT", "ABOVE", "ADAPT", "AGENT", "ALONE", "ANGEL", "APPLE", "AWARD",
@@ -83,7 +84,8 @@ rt = app.route
 game_state = {}
 
 def choose_new_word():
-    return random.choice(WORDS).lower()
+    """Return a random word that matches the configured word length."""
+    return random.choice(VALID_WORDS).lower()
 
 def reset_game_state():
     global game_state
