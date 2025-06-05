@@ -77,7 +77,7 @@ css = Style(f'''
     }}
 ''')
 
-app = FastHTML(hdrs=(picolink, css)) # Removed gridlink and htmx_ws as they are not used
+app = FastHTML(hdrs=(picolink, css)) # Use picolink for icons and our CSS styles
 rt = app.route
 
 # --- Game State ---
