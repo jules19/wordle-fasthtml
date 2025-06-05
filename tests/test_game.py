@@ -30,6 +30,13 @@ def test_evaluate_guess_absent_letters():
     assert main.evaluate_guess(guess, target) == expected
 
 
+def test_evaluate_guess_with_repeated_letters():
+    target = "aabbb"
+    guess = "ababa"
+    expected = ["green", "yellow", "yellow", "green", "gray"]
+    assert main.evaluate_guess(guess, target) == expected
+
+
 def test_reset_game_state_sets_new_word_and_clears_guesses():
     main.game_state['guesses'] = ['old']
     main.game_state['results'] = [['gray'] * main.WORD_LENGTH]
