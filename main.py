@@ -11,7 +11,10 @@ MAX_GUESSES = 6
 # A small list of words for demonstration.
 # In a real app, you'd have a much larger list, potentially loaded from a file.
 WORDS = ["PYTHON", "FASTHTML", "HTMX", "CODES", "DEBUG", "CLOUD", "ALERT", "PROXY"]
-VALID_GUESSES = set(w.lower() for w in WORDS) # For simplicity, valid guesses are from the same list
+# Filter out any words that don't match the configured length to avoid invalid
+# target words being chosen.
+VALID_WORDS = [w for w in WORDS if len(w) == WORD_LENGTH]
+VALID_GUESSES = set(w.lower() for w in VALID_WORDS)  # For simplicity, valid guesses are from the same list
 
 # --- Styles ---
 css = Style(f'''
@@ -60,7 +63,8 @@ rt = app.route
 game_state = {}
 
 def choose_new_word():
-    return random.choice(WORDS).lower()
+    """Return a random word that matches the configured word length."""
+    return random.choice(VALID_WORDS).lower()
 
 def reset_game_state():
     global game_state
