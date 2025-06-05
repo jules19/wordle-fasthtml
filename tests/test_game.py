@@ -38,3 +38,17 @@ def test_reset_game_state_sets_new_word_and_clears_guesses():
     assert main.game_state['target_word'] == 'abcde'
     assert main.game_state['guesses'] == []
     assert main.game_state['results'] == []
+
+
+def test_get_used_letter_colors_prioritizes_colors():
+    main.game_state['guesses'] = ['abcde', 'fghij']
+    main.game_state['results'] = [
+        ['gray', 'yellow', 'green', 'gray', 'gray'],
+        ['yellow', 'green', 'gray', 'gray', 'gray'],
+    ]
+    colors = main.get_used_letter_colors()
+    assert colors['a'] == 'gray'
+    assert colors['b'] == 'yellow'
+    assert colors['c'] == 'green'
+    assert colors['f'] == 'yellow'
+    assert colors['g'] == 'green'
