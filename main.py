@@ -8,13 +8,34 @@ if __name__ == "__main__": sys.exit("Run this app with `uvicorn main:app --reloa
 # Wordle Configuration
 WORD_LENGTH = 5
 MAX_GUESSES = 6
-# A small list of words for demonstration.
-# In a real app, you'd have a much larger list, potentially loaded from a file.
-WORDS = ["PYTHON", "FASTHTML", "HTMX", "CODES", "DEBUG", "CLOUD", "ALERT", "PROXY"]
-# Filter out any words that don't match the configured length to avoid invalid
-# target words being chosen.
-VALID_WORDS = [w for w in WORDS if len(w) == WORD_LENGTH]
-VALID_GUESSES = set(w.lower() for w in VALID_WORDS)  # For simplicity, valid guesses are from the same list
+
+# A list of words for play.
+# In a real app, you'd likely load these from a dictionary file.
+WORDS = [
+    "ABOUT", "ABOVE", "ADAPT", "AGENT", "ALONE", "ANGEL", "APPLE", "AWARD",
+    "BEACH", "BEGIN", "BONUS", "BRAVE", "BUILD", "CAMEL", "CHAIR", "CHARM",
+    "CHEER", "CLEAR", "CLOWN", "COACH", "CRAFT", "CROWN", "DANCE", "DEFER",
+    "DELAY", "DEPTH", "DEVIL", "DREAM", "DRIVE", "EARTH", "EMBER", "ENTRY",
+    "FAITH", "FIELD", "FINAL", "FLAME", "FLUTE", "FOCUS", "FRAME", "FRESH",
+    "FROST", "GIANT", "GHOST", "GLASS", "GRAND", "GRACE", "GREEN", "GUARD",
+    "GUIDE", "HAUNT", "HEART", "HEAVY", "HONOR", "HOTEL", "HOUSE", "HUMAN",
+    "INDEX", "JELLY", "JUDGE", "KNIFE", "LAUGH", "LAYER", "LEVEL", "LIGHT",
+    "MAGIC", "MAJOR", "MAPLE", "MODEL", "MONEY", "MONTH", "MOTOR", "MOUSE",
+    "MUSIC", "NERVE", "NIGHT", "OCEAN", "OFFER", "OPERA", "OTHER", "PARTY",
+    "PHONE", "PHOTO", "PILOT", "POINT", "POWER", "PRESS", "PRICE", "PRIDE",
+    "PRINT", "QUEEN", "QUICK", "RADIO", "RATIO", "REACH", "ROUND", "ROYAL",
+    "SCALE", "SCENE", "SCORE", "SHADE", "SHARE", "SHARP", "SHELF", "SHIFT",
+    "SHINE", "SHIRT", "SHORT", "SHOWN", "SIGHT", "SKILL", "SMILE", "SOLID",
+    "SOUND", "SPACE", "SPARE", "SPEED", "SPEND", "SPICY", "SPITE", "SPLIT",
+    "STAGE", "STAND", "START", "STATE", "STEEL", "STICK", "STONE", "STORE",
+    "STORY", "STORM", "STRAP", "STYLE", "SUGAR", "SUNNY", "TABLE", "TEACH",
+    "TEMPO", "TENOR", "THANK", "THING", "THORN", "THREE", "THUMB", "TIGHT",
+    "TODAY", "TOUGH", "TRACE", "TRACK", "TRADE", "TRAIN", "TRIAL", "TRIBE",
+    "TRICK", "TRUCK", "TRUST", "TUTOR", "UNITY", "VALUE", "VIDEO", "VISIT",
+    "VOICE", "WATER", "WEIGH", "WHALE", "WHERE", "WHEEL", "WHITE", "WHOLE",
+    "WOMAN", "WORLD", "WRITE", "YOUTH", "ZEBRA"
+]
+VALID_GUESSES = set(w.lower() for w in WORDS)  # Valid guesses come from the same list
 
 # --- Styles ---
 css = Style(f'''
