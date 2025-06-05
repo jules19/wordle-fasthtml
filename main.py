@@ -85,7 +85,7 @@ game_state = {}
 
 def choose_new_word():
     """Return a random word that matches the configured word length."""
-    return random.choice(VALID_WORDS).lower()
+    return random.choice(WORDS).lower()
 
 def reset_game_state():
     global game_state
