@@ -60,6 +60,13 @@ css = Style(f'''
     .letter-box.gray {{ background-color: #787c7e; border-color: #787c7e; color: white; }}
     .letter-box.yellow {{ background-color: #c9b458; border-color: #c9b458; color: white; }}
     .letter-box.green {{ background-color: #6aaa64; border-color: #6aaa64; color: white; }}
+    .letter-box.small {{
+        width: 30px; height: 30px;
+        font-size: 1rem;
+    }}
+    .used-letters {{
+        display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;
+    }}
 
     .input-area form {{ display: flex; gap: 10px; margin-bottom: 10px; }}
     .input-area input[type="text"] {{
@@ -128,6 +135,17 @@ def evaluate_guess(guess: str, target: str) -> list[str]:
                 result[i] = "gray"
     return result
 
+def get_used_letter_colors() -> dict[str, str]:
+    """Return a mapping of guessed letters to their best achieved color."""
+    priority = {"gray": 0, "yellow": 1, "green": 2}
+    colors: dict[str, str] = {}
+    for guess, result in zip(game_state['guesses'], game_state['results']):
+        for ch, col in zip(guess, result):
+            prev = colors.get(ch)
+            if prev is None or priority[col] > priority[prev]:
+                colors[ch] = col
+    return colors
+
 # --- UI Components ---
 def UIGuessGrid():
     rows = []
@@ -165,6 +183,14 @@ def UIInputArea():
 def UIMessageArea():
     return Div(game_state['message'], id='message-area', cls='message-area')
 
+def UIUsedLetters():
+    colors = get_used_letter_colors()
+    boxes = []
+    for ch in 'abcdefghijklmnopqrstuvwxyz':
+        color = colors.get(ch, 'empty')
+        boxes.append(Div(ch.upper(), cls=f'letter-box small {color}'))
+    return Div(*boxes, id='used-letters', cls='used-letters')
+
 def UIControls():
     return Div(
         Form(
@@ -178,6 +204,7 @@ def UIControls():
 def WordleGameArea():
     return Div(
         UIGuessGrid(),
+        UIUsedLetters(),
         UIMessageArea(),
         UIInputArea(),
         UIControls(),
