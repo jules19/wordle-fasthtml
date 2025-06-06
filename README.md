@@ -20,5 +20,5 @@ keyboard showing which letters you've already guessed.
    ```
 4. **Run tests**
    ```bash
-   pytest
+   pytest tests/test_game.py
    ```
